@@ -3,7 +3,7 @@ import './App.css'
 // NewsHub : une mini page d'actus. Elle marche très bien à la souris.
 // Mission : ne touche à RIEN ici pour l'instant. Lis le code, repère les
 // problèmes, et remplis AUDIT.md. (Tu peux corriger en bonus si tu veux,
-// mais ce n'est pas demandé pour cette quête.)
+// mais ce n'est pas demandé pour cette quête.) 
 
 const articles = [
   { id: 1, title: 'La ville lance un plan vélo', status: 'publié' },
