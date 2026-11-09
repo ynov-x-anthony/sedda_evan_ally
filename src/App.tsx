@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import Modal from './Modal'
 import './App.css'
 
@@ -7,30 +7,28 @@ import './App.css'
 
 function App() {
   const [open, setOpen] = useState(false)
+  const openButtonRef = useRef<HTMLButtonElement>(null)
+  const closeModal = useCallback(() => setOpen(false), [])
 
   return (
     <div className="page">
       <h1>Paramètres du compte</h1>
 
-      {/* Problème 1 : un faux lien invisible, placé avant le vrai contenu,
-          capture le focus en premier à cause de son tabIndex positif. */}
-      <span tabIndex={1} className="decoy">·</span>
+      <a className="skip-link" href="#form">Aller au formulaire</a>
 
-      <a href="#form">Aller au formulaire</a>
-
-      <form id="form" className="form">
+      <form id="form" className="form" tabIndex={-1}>
         <label htmlFor="name">Nom</label>
         <input id="name" type="text" />
 
         <label htmlFor="email">Email</label>
         <input id="email" type="email" />
 
-        <button type="button" onClick={() => setOpen(true)}>
+        <button ref={openButtonRef} type="button" onClick={() => setOpen(true)}>
           Ouvrir les préférences avancées
         </button>
       </form>
 
-      {open && <Modal onClose={() => setOpen(false)} />}
+      {open && <Modal onClose={closeModal} returnFocusRef={openButtonRef} />}
     </div>
   )
 }
